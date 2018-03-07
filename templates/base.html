@@ -14,17 +14,17 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row ">
             <div class="col-sm-2 table-bordered">
-                <img src={% static 'blog/images/2.jpg' %} width="280" height="280">
+                <img src="{% static 'blog/images/2.jpg' %}" class="img-responsive" alt="Responsive image">
                 <br>
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation" class="active" ><a href="#">我的主页</a></li>
                     <br>
-                    <li role="presentation" class="active"><a href="#">技术随笔<span class="badge">4</span></a></li>
+                    <li role="presentation" class="active"><a href="#">技术随笔<span class="badge">{{ blog_category_learn}}</span></a></li>
                     <br>
-                    <li role="presentation" class="active"><a href="#">胡侃漫谈<span class="badge">4</span></a></li>
+                    <li role="presentation" class="active"><a href="#">生活笔记<span class="badge">{{ blog_category_life }}</span></a></li>
                     <br>
                     <li role="presentation" class="active"><a href="#">联系方式</a> </li>
                     <br>
@@ -34,12 +34,12 @@
             <div class="col-sm-7 table-bordered">
                 {% for blog in blogs %}
                     <dl>
-                        <dt>{{ blog.title }}</dt>
+                        <strong><dt>{{ blog.title }}</dt></strong>
                         <br>
                         <dd>
                             <h4>
                             <lead>
-                            <div class="alert alert-warning" role="alert">{{ blog.content|truncatechars:500}}</div>
+                            <div class="alert alert-warning" role="alert">{{ blog.content|truncatechars:200}}</div>
                             </lead>
                             <span class="label label-primary">{{ blog.category }}</span>
                         {% for tag in blog.tag.all %}
@@ -53,35 +53,31 @@
                 {% endfor %}
                 <div class="container">
                     <nav aria-label="Page navigation ">
-                    <ul class="pagination">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
+                        <ul class="pagination">
+                            {% for i in paginator.page_range %}
+                                <li><a href= "{% url 'index'%}?page={{ i }}">{{ i }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        <li><a href= "">当前页：{{ page_obj.number}}</a></li>
+                        <li><a href= "">时间：{{ time}}</a></li>
                     </nav>
                 </div>
-
-
-
                 <nav aria-label="...">
                     <ul class="pager">
                         {% if page_obj.has_previous %}
-                        <li class="previous active"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                            <li class="previous active"><a href="{% url 'index' %}?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
                         {% else %}
-                            <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                            <li class="previous disabled"><a ><span aria-hidden="true">&larr;</span> 上一页</a></li>
                         {% endif %}
                         {% if page_obj.has_next %}
-                            <li class="next active"><a href="#">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                            <li class="next active"><a href="{% url 'index' %}?page={{ page_obj.next_page_number }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
                         {% else %}
-                            <li class="next disabled"><a href="#">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                            <li class="next disabled"><a >下一页 <span aria-hidden="true">&rarr;</span></a></li>
                         {% endif %}
 
                      </ul>
                 </nav>
             </div>
-
             <div class="col-sm-3 table-bordered">
                 <strong>标签：</strong>
                     <br>
@@ -92,6 +88,15 @@
                             {% endfor %}
                         </div>
                     </div>
+                <strong>
+                    <div class="alert alert-info " role="alert">
+                        <div class="center-block">
+                            {% for archive_month in archive %}
+                                <span class="label label-info">{{ archive_month }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </strong>
             </div>
         </div>
     </div>
