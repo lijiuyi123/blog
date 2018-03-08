@@ -1,0 +1,104 @@
+{% load markdown_deux_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>李玖懿的博客</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row ">
+            <div class="col-sm-2 table-bordered">
+                <img src="/static/blog/images/2.jpg" class="img-responsive" alt="Responsive image">
+                <br>
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" class="active" ><a href="/">我的主页</a></li>
+                    <br>
+                    <li role="presentation" class="active"><a href="#">技术随笔<span class="badge">{{ blog_category_learn}}</span></a></li>
+                    <br>
+                    <li role="presentation" class="active"><a href="#">生活笔记<span class="badge">{{ blog_category_life }}</span></a></li>
+                    <br>
+                    <li role="presentation" class="active"><a href="#">联系方式</a> </li>
+                    <br>
+
+                </ul>
+            </div>
+            <div class="col-sm-7 table-bordered">
+                {% for blog in blogs %}
+                    <dl>
+                        <strong>{{ blog.title }}</strong>
+                        <br>
+                        <dd>
+                            <h4>
+                            <lead>
+                            <div class="" role="alert"><small>{{ blog.content|markdown|truncatechars:200}}</small></div>
+                            </lead>
+                            <span class="label label-primary">{{ blog.category }}</span>
+                        {% for tag in blog.tag.all %}
+                            <span class="label label-primary">{{ tag }}</span>
+                            {% endfor %}
+                        <span class="label label-success"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>{{ blog.changed_time}}</span>
+                        <span class="label label-warning"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>李二狗</span>
+                        <span class="label label-danger" ><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"><a href="blog/{{ blog.id }}">阅读全文</a> </span></span>
+                        <br>
+                    </dl>
+                    <hr>
+                {% endfor %}
+                <div class="container">
+                    <nav aria-label="Page navigation ">
+                        <ul class="pagination">
+                            {% for i in paginator.page_range %}
+                                <li><a href= "{% url 'index'%}?page={{ i }}">{{ i }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        <li><a href= "">当前页：{{ page_obj.number}}</a></li>
+                        <li><a href= "">时间：{{ time}}</a></li>
+                    </nav>
+                </div>
+                <nav aria-label="...">
+                    <ul class="pager">
+                        {% if page_obj.has_previous %}
+                            <li class="previous active"><a href="{% url 'index' %}?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                        {% else %}
+                            <li class="previous disabled"><a ><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <li class="next active"><a href="{% url 'index' %}?page={{ page_obj.next_page_number }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                        {% else %}
+                            <li class="next disabled"><a >下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                        {% endif %}
+
+                     </ul>
+                </nav>
+            </div>
+            <div class="col-sm-3 table-bordered">
+                <strong>标签：</strong>
+                    <br>
+                    <div class="alert alert-success " role="alert">
+                        <div class="center-block">
+                            {% for i in tags %}
+                                <span class="label label-info">{{ i }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                <strong>按时间归档：</strong>
+                    <div class="alert alert-info " role="alert">
+                        <div class="center-block">
+                            {% for foo in archive %}
+                                <span class="label label-warning">{{ foo|date:"Y-m"}}<span class="badge"></span></span>
+                            {% endfor %}
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
