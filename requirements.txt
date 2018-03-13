@@ -4,5 +4,6 @@ django-js-asset==1.0.0
 django-markdown-deux==1.0.5
 Markdown==2.6.11
 markdown2==2.3.5
+PyMySQL==0.8.0
 pytz==2018.3
 uWSGI==2.0.17
