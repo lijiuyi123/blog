@@ -22,7 +22,7 @@
                  <ul id="mytab" class="navbar-nav nav">
                      <li ><a href="{% url 'index' %}">Home</a></li>
                      <li ><a href="{% url 'learn' %}">技术随笔</a></li>
-                     <li ><a href="{% url 'life' %}">生活记录</a> </li>
+                     <li ><a href="{% url 'life' %}">生活笔记</a></li>
                      <li ><a href="">关于自己</a> </li>
                  </ul>
              </div>
@@ -34,9 +34,6 @@
  <br>
  <br>
  <br>
-
-
-
  <div class="container">
      <div class="row">
          <div class="col-md-8">
@@ -90,7 +87,7 @@
          <p>分类：</p>
          <a href="{% url 'learn' %}">技术随笔（{{ blog_category_learn }}）</a>
          <br>
-         <a href="{% url 'life' %}">生活记录（{{ blog_category_life  }}）</a>
+         <a href="{% url 'life' %}">生活笔记（{{ blog_category_life }}）</a>
          </div>
      </div>
  </div>
