@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>李玖懿的博客</title>
@@ -11,65 +11,63 @@
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="row ">
-            <div class="col-sm-2 table-bordered">
-                <img src="{% static 'blog/images/2.jpg' %}" class="img-responsive" alt="Responsive image">
-                <br>
-                <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" class="active" ><a href="/">我的主页</a></li>
-                    <br>
-                    <li role="presentation" class="active"><a href="#">技术随笔<span class="badge">{{ blog_category_learn}}</span></a></li>
-                    <br>
-                    <li role="presentation" class="active"><a href="#">生活笔记<span class="badge">{{ blog_category_life }}</span></a></li>
-                    <br>
-                    <li role="presentation" class="active"><a href="#">联系方式</a> </li>
-                    <br>
-
-                </ul>
-            </div>
-            <div class="col-sm-7 table-bordered">
-                <dl>
-                       <blockquote>
-                           <h2><ins>{{ blog.title }}</ins></h2>
-                           <br>
-                           <p>{{ blog.content|safe }}</p>
-                       </blockquote>
-
-                </dl>
-                    <dl>
-                        <span class="label label-primary">{{ blog.category }}</span>
-                        {% for tag in blog.tag.all %}
-                            <span class="label label-primary">{{ tag }}</span>
-                            {% endfor %}
-                        <span class="label label-success"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>{{ blog.changed_time}}</span>
-                        <span class="label label-warning"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>李二狗</span>
-                        <br>
-                    </dl>
-            </div>
-            <div class="col-sm-3 table-bordered">
-                <strong>标签：</strong>
-                    <br>
-                    <div class="alert alert-success " role="alert">
-                        <div class="center-block">
-                            {% for i in tags %}
-                                <span class="label label-info">{{ i }}</span>
-                            {% endfor %}
-                        </div>
-                    </div>
-                <strong>按时间归档: </strong>
-                    <div class="alert alert-info " role="alert">
-                        <div class="center-block">
-                            {% for foo in archive %}
-                                <span class="label label-warning">{{ foo|date:"Y-m"}}</span>
-                            {% endfor %}
-                        </div>
-                    </div>
-            </div>
-        </div>
-    </div>
+ <div class="container">
+     <div class="row">
+         <nav class="nav navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+             <a href="#" class="navbar-brand ">李玖懿的博客</a>
+             <div id="navbar" class="collapse navbar-collapse">
+                 <ul id="mytab" class="navbar-nav nav">
+                     <li ><a href="{% url 'index' %}">Home</a></li>
+                     <li ><a href="{% url 'learn' %}">技术随笔</a></li>
+                     <li ><a href="{% url 'life' %}">生活记录</a> </li>
+                     <li ><a href="">关于自己</a> </li>
+                 </ul>
+             </div>
+         </nav>
+     </div>
+ </div>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <div class="container">
+     <div class="row">
+         <div class="col-md-8">
+             <h3>{{ blog.title }}
+                 <small>
+                     <p class="text-right"><span class="glyphicon glyphicon-folder-close" aria-hidden="true">{{ blog.category }}</span></p>
+                     <p class="text-right"><span class="glyphicon glyphicon-time" aria-hidden="true">{{ blog.created_time }}</span></p>
+                 </small>
+             </h3>
+             <p>{{ blog.content|safe }}</p>
+             <hr>
+             <p class="text-right">阅读量：{{ blog.view_count }}</p>
+         </div>
+         <div class="col-md-4">
+             <p>标签：</p>
+             {% for tag in tags %}
+                 <span class="label label-primary ">{{ tag }}</span>
+             {% endfor %}
+             <hr>
+         <blockquote>
+             <p>天涯远不远？不远！人就在天涯，天涯怎么会远？</p>
+             <footer>古龙 <cite title="Source Title">《天涯明月刀》</cite></footer>
+         </blockquote>
+         <hr>
+         <p>分类：</p>
+         <a href="{% url 'learn' %}">技术随笔（{{ blog_category_learn }}）</a>
+         <br>
+         <a href="{% url 'life' %}">生活记录（{{ blog_category_life  }}）</a>
+         </div>
+     </div>
+ </div>
 </body>
 </html>
+
+
+
+

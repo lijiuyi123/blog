@@ -36,12 +36,13 @@ class Blog(models.Model):
     changed_time = models.DateTimeField(auto_now=True, verbose_name='修改时间')
     tag = models.ManyToManyField(Tag,verbose_name='标签')
     category = models.ForeignKey(Category, on_delete=models.CASCADE,verbose_name='分类')
+    view_count=models.IntegerField(default=0,verbose_name='阅读量')
 
     def __str__(self):
         return self.title
 
     class Meta:
-        ordering = ['-changed_time']
+        ordering = ['-created_time']
         db_table = '博客'
         verbose_name_plural = '博客'
 
