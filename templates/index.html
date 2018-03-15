@@ -1,4 +1,6 @@
 {% load static %}
+{% load martortags %}
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -39,7 +41,7 @@
          <div class="col-md-8">
              {% for blog in blogs %}
                  <blockquote>{{ blog.title }}</blockquote>
-                 <p class="text-muted">{{ blog.content|truncatechars:200 }}</p>
+                 <p class="text-muted">{{ blog.content|safe_markdown|truncatechars:200 }}</p>
                  <span class="glyphicon glyphicon-time" aria-hidden="true">{{ blog.created_time}}  </span>
                  <span class="glyphicon glyphicon-folder-close" aria-hidden="true">{{ blog.category }}</span>
                  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"><a href="{% url 'index' %}blog/{{ blog.id }}">阅读全文</a></span>
