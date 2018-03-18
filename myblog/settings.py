@@ -73,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myblog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -86,11 +85,8 @@ DATABASES = {
         'PORT':'3306',
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -105,8 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -137,52 +131,29 @@ MARTOR_ENABLE_CONFIGS = {
 import time
 MARTOR_UPLOAD_PATH = 'media/uploads/{}'.format(time.strftime("%Y/%m/%d/"))
 MARTOR_UPLOAD_URL = '/media/uploader/'  # change to local uploader
-
-# Maximum Upload Image
-# 2.5MB - 2621440
-# 5MB - 5242880
-# 10MB - 10485760
-# 20MB - 20971520
-# 50MB - 5242880
-# 100MB 104857600
-# 250MB - 214958080
-# 500MB - 429916160
-MAX_IMAGE_UPLOAD_SIZE = 5242880  # 5MB
-
 # Media Path
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media/') #'/path/to/yourenv/yourproject/media'
-
-
+MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
+#'/path/to/yourenv/yourproject/media'
 # Global martor settings
 # Input: string boolean, `true/false`
-
-
 # To setup the martor editor with label or not (default is False)
 MARTOR_ENABLE_LABEL = False
-
-# Imgur API Keys
-
 # Safe Mode
 MARTOR_MARKDOWN_SAFE_MODE = True # default
-
 # Markdownify
 MARTOR_MARKDOWNIFY_FUNCTION = 'martor.utils.markdownify' # default
 MARTOR_MARKDOWNIFY_URL = '/martor/markdownify/' # default
-
 # Markdown extensions (default)
 MARTOR_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra',
     'markdown.extensions.nl2br',
     'markdown.extensions.smarty',
     'markdown.extensions.fenced_code',
-
     # Custom markdown extensions.
     'martor.extensions.urlize',
     'martor.extensions.del_ins', # ~~strikethrough~~ and ++underscores++
     'martor.extensions.mention', # require for mention
     'martor.extensions.emoji',# require for emoji
 ]
-
 # Markdown Extensions Configs
-MARTOR_MARKDOWN_EXTENSION_CONFIGS = {}

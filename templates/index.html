@@ -1,6 +1,5 @@
 {% load static %}
 {% load martortags %}
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -23,9 +22,9 @@
              <div id="navbar" class="collapse navbar-collapse">
                  <ul id="mytab" class="navbar-nav nav">
                      <li ><a href="{% url 'index' %}">Home</a></li>
-                     <li ><a href="{% url 'learn' %}">技术随笔</a></li>
-                     <li ><a href="{% url 'life' %}">生活笔记</a></li>
-                     <li ><a href="">关于自己</a> </li>
+                     <li ><a href="{% url 'category' category_url='技术随笔'%}">技术随笔</a></li>
+                     <li ><a href="{% url 'category' category_url='生活笔记'%}">生活笔记</a></li>
+                     <li ><a href="">关于自己</a></li>
                  </ul>
              </div>
          </nav>
@@ -44,7 +43,7 @@
                  <p class="text-muted">{{ blog.content|safe_markdown|truncatechars:200 }}</p>
                  <span class="glyphicon glyphicon-time" aria-hidden="true">{{ blog.created_time}}  </span>
                  <span class="glyphicon glyphicon-folder-close" aria-hidden="true">{{ blog.category }}</span>
-                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"><a href="{% url 'index' %}blog/{{ blog.id }}">阅读全文</a></span>
+                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"><a href="{% url 'detail' id=blog.id %}">阅读全文</a></span>
                  <p class="text-right">阅读量：{{ blog.view_count }}</p>
                  <hr>
              {% endfor %}
@@ -87,18 +86,14 @@
          </blockquote>
          <hr>
          <p>分类：</p>
-         <a href="{% url 'learn' %}">技术随笔（{{ blog_category_learn }}）</a>
-         <br>
-         <a href="{% url 'life' %}">生活笔记（{{ blog_category_life }}）</a>
+         {% for category in categorys %}
+             <a href="{% url 'category' category_url=category.category %}">{{ category.category }}({{ category.count }})</a>
+             <br>
+         {% endfor %}
          </div>
      </div>
  </div>
-<script>
-        $("#mytab").find("a").click(function(e){
-            e.preventDefault();
-            $(this).tab("show");
-        })
-</script>
+
 </body>
 </html>
 

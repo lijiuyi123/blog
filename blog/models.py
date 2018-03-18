@@ -1,6 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
-from  ckeditor import fields
+from ckeditor import fields
 from martor.models import  MartorField
 # Create your models here.
 
