@@ -1,5 +1,3 @@
-from django.http import HttpResponseRedirect, request
-from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from blog import models
 import time
@@ -27,10 +25,16 @@ class IndexView(ListView):
 
 
 class CategoryView(IndexView):
+    template_name = 'category.html'
 
     def get_queryset(self, **kwargs):
         blogs = models.Blog.objects.filter(category__category__contains=self.kwargs['category_url'])
         return blogs
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryView,self).get_context_data()
+        context['state'] = self.kwargs['category_url']
+        return context
 
 
 class DetailBlogView(DetailView):
